@@ -124,19 +124,19 @@ tasks.register("clearLocalExtensionCache") {
 }
 
 fun createRepository(location: String) {
-    val pluginsFile = getFile(location, "plugins.json").createFile("[]")
-    val pluginsJson = JsonSlurper().parseText(pluginsFile.readText()) as MutableList<MutableMap<String, Any>>
-    val pluginJson = pluginsJson.firstOrAdd(mutableMapOf()) { it["id"] == extensionId }
-    pluginJson["id"] = extensionId
-    pluginJson["name"] = extensionName
-    pluginJson["description"] = extensionDescription
-    pluginJson["provider"] = extensionProvider
-    val releases = pluginJson.getOrPut("releases") { mutableListOf<Any>() } as MutableList<MutableMap<String, Any>>
+    val extensionsFile = getFile(location, "extensions.json").createFile("[]")
+    val extensionsJson = JsonSlurper().parseText(extensionsFile.readText()) as MutableList<MutableMap<String, Any>>
+    val extensionJson = extensionsJson.firstOrAdd(mutableMapOf()) { it["id"] == extensionId }
+    extensionJson["id"] = extensionId
+    extensionJson["name"] = extensionName
+    extensionJson["description"] = extensionDescription
+    extensionJson["provider"] = extensionProvider
+    val releases = extensionJson.getOrPut("releases") { mutableListOf<Any>() } as MutableList<MutableMap<String, Any>>
     val release = releases.firstOrAdd(mutableMapOf()) { it["version"] == extensionVersion }
     release["version"] = extensionVersion
     release["date"] = ZonedDateTime.now(ZoneId.of("UTC")).format(ISO_DATE_TIME)
     release["url"] = "$extensionId-$extensionVersion.jar"
-    pluginsFile.write(GsonBuilder().setPrettyPrinting().create().toJson(pluginsJson).toString())
+    extensionsFile.write(GsonBuilder().setPrettyPrinting().create().toJson(extensionsJson).toString())
 }
 
 fun File.createFile(defaultContent: String): File {
