@@ -1,0 +1,15 @@
+[
+  {
+    "id": "valtimo-weather-extension",
+    "name": "Weather extension",
+    "description": "Check the weather with this extension!",
+    "provider": "Klaas Schuijtemaker",
+    "releases": [
+      {
+        "version": "0.0.1",
+        "date": "2024-10-24T08:25:35.306922Z[UTC]",
+        "url": "/Users/klaasschuijtemaker/Projects/weather-extension/repository/valtimo-weather-extension-0.0.1.jar"
+      }
+    ]
+  }
+]

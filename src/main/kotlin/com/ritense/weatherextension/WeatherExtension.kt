@@ -1,29 +1,37 @@
+/*
+ * Copyright 2015-2024 Ritense BV, the Netherlands.
+ *
+ *  Licensed under EUPL, Version 1.2 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" basis,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package com.ritense.weatherextension
 
+import org.pf4j.Plugin
 import org.pf4j.PluginWrapper
-import org.pf4j.spring.SpringPlugin
-import org.springframework.context.ApplicationContext
-import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
-class WeatherExtension(wrapper: PluginWrapper) : SpringPlugin(wrapper) {
+class WeatherExtension(wrapper: PluginWrapper) : Plugin(wrapper) {
 
     override fun start() {
-        println("WeatherExtension.start()")
-        println("System.getenv(): " + System.getenv().entries.joinToString { "${it.key}=${it.value}" })
+        println("Start")
     }
 
     override fun stop() {
-        println("WeatherExtension.stop()")
-        super.stop()
+        println("Stop")
     }
 
-    override fun createApplicationContext(): ApplicationContext {
-        getWrapper().
-        val applicationContext = AnnotationConfigApplicationContext()
-        applicationContext.classLoader = getWrapper().pluginClassLoader
-        applicationContext.register(WeatherConfiguration::class.java)
-        applicationContext.refresh()
-        return applicationContext
+    override fun delete() {
+        println("Delete")
     }
 
 }
