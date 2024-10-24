@@ -30,7 +30,7 @@ class WeatherService(
 ) : ExtensionPoint {
 
     fun predictWeather(documentId: String): String {
-        val weatherPrediction = "It is sunny today :)"
+        val weatherPrediction = "Not very sunny today =/"
 
         documentService.modifyDocument(
             documentService[documentId],
