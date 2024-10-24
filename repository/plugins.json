@@ -16,5 +16,18 @@
         "url": "https://raw.githubusercontent.com/valtimo-platform/weather-extension/refs/heads/main/repository/valtimo-weather-extension-0.0.1.jar"
       }
     ]
+  },
+  {
+    "id": "valtimo-weather-extension2",
+    "name": "Weather extension2",
+    "description": "Check the weather with this extension2!",
+    "provider": "Klaas Schuijtemaker",
+    "releases": [
+      {
+        "version": "0.0.3",
+        "date": "2024-10-24T10:15:03.955155Z[UTC]",
+        "url": "https://raw.githubusercontent.com/valtimo-platform/weather-extension/refs/heads/main/repository/valtimo-weather-extension-0.0.1.jar"
+      }
+    ]
   }
 ]
