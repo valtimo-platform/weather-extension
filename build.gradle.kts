@@ -135,7 +135,8 @@ fun createRepository(location: String) {
     val release = releases.firstOrAdd(mutableMapOf()) { it["version"] == extensionVersion }
     release["version"] = extensionVersion
     release["date"] = ZonedDateTime.now(ZoneId.of("UTC")).format(ISO_DATE_TIME)
-    release["url"] = getFile(projectDir.absolutePath, "repository", "$extensionId-$extensionVersion.jar").absolutePath
+    release["url"] = "https://raw.githubusercontent.com/valtimo-platform/weather-extension/refs/heads/main/repository/valtimo-weather-extension-0.0.1.jar"
+    // getFile(projectDir.absolutePath, "repository", "$extensionId-$extensionVersion.jar").absolutePath
     pluginsFile.write(GsonBuilder().setPrettyPrinting().create().toJson(pluginsJson).toString())
 }
 
