@@ -16,8 +16,8 @@
  */
 
 import groovy.json.JsonSlurper
+import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter.ISO_DATE_TIME
 import java.util.Properties
 import org.jetbrains.kotlin.com.google.common.io.Files
@@ -134,7 +134,7 @@ fun createRepository(location: String) {
     val releases = extensionJson.getOrPut("releases") { mutableListOf<Any>() } as MutableList<MutableMap<String, Any>>
     val release = releases.firstOrAdd(mutableMapOf()) { it["version"] == extensionVersion }
     release["version"] = extensionVersion
-    release["date"] = ZonedDateTime.now(ZoneId.of("UTC")).format(ISO_DATE_TIME)
+    release["date"] = LocalDateTime.now(ZoneId.of("UTC")).format(ISO_DATE_TIME)
     release["url"] = "$extensionId-$extensionVersion.jar"
     extensionsFile.write(GsonBuilder().setPrettyPrinting().create().toJson(extensionsJson).toString())
 }
