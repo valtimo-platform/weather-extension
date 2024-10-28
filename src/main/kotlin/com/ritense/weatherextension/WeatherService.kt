@@ -22,9 +22,11 @@ import com.ritense.document.service.DocumentService
 import com.ritense.valtimo.contract.annotation.ProcessBean
 import org.pf4j.Extension
 import org.pf4j.ExtensionPoint
+import org.springframework.stereotype.Service
 
 @Extension
 @ProcessBean
+@Service
 class WeatherService(
     private val documentService: DocumentService
 ) : ExtensionPoint {

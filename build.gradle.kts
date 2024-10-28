@@ -16,9 +16,7 @@
  */
 
 import groovy.json.JsonSlurper
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter.ISO_DATE_TIME
+import java.time.Instant
 import java.util.Properties
 import org.jetbrains.kotlin.com.google.common.io.Files
 import org.jetbrains.kotlin.com.google.gson.GsonBuilder
@@ -28,6 +26,7 @@ val kotlinLoggingVersion: String by project
 val pf4jVersion: String by project
 val pf4jSpringVersion: String by project
 val valtimoVersion: String by project
+val camundaVersion: String by project
 
 plugins {
     // Spring
@@ -61,6 +60,8 @@ repositories {
 dependencies {
     implementation("com.ritense.valtimo:contract:$valtimoVersion")
     implementation("com.ritense.valtimo:document:$valtimoVersion")
+    implementation("com.ritense.valtimo:plugin:$valtimoVersion")
+    implementation("org.camunda.bpm:camunda-engine:$camundaVersion")
 
     implementation("io.github.microutils:kotlin-logging:$kotlinLoggingVersion")
 
@@ -102,7 +103,10 @@ tasks.register("buildExtensionRepository") {
         val jarFile = getFile(layout.buildDirectory.get().toString(), "libs").listFiles()!!.first { it.name.endsWith(".jar") }
         val newJarFile = getFile(projectDir.absolutePath, "repository", "$extensionId-$extensionVersion.jar")
         Files.copy(jarFile, newJarFile)
-        createRepository(getFile(projectDir.absolutePath, "repository").absolutePath)
+        createRepository(
+            extensionsJsonFolder = getFile(projectDir.absolutePath, "repository").absolutePath,
+            jarFolder = null
+        )
     }
 }
 
@@ -111,7 +115,10 @@ tasks.register("publishLocalExtension") {
     description = "Publish this extension to your local machine"
     dependsOn("buildExtensionRepository")
     doFirst {
-        createRepository(getFile(System.getProperty("user.home"), ".valtimo_extensions").absolutePath)
+        createRepository(
+            extensionsJsonFolder = getFile(System.getProperty("user.home"), ".valtimo_extensions").absolutePath,
+            jarFolder = getFile(projectDir.absolutePath, "repository").absolutePath
+        )
     }
 }
 
@@ -123,8 +130,8 @@ tasks.register("clearLocalExtensionCache") {
     }
 }
 
-fun createRepository(location: String) {
-    val extensionsFile = getFile(location, "extensions.json").createFile("[]")
+fun createRepository(extensionsJsonFolder: String, jarFolder: String?) {
+    val extensionsFile = getFile(extensionsJsonFolder, "extensions.json").createFile("[]")
     val extensionsJson = JsonSlurper().parseText(extensionsFile.readText()) as MutableList<MutableMap<String, Any>>
     val extensionJson = extensionsJson.firstOrAdd(mutableMapOf()) { it["id"] == extensionId }
     extensionJson["id"] = extensionId
@@ -134,8 +141,12 @@ fun createRepository(location: String) {
     val releases = extensionJson.getOrPut("releases") { mutableListOf<Any>() } as MutableList<MutableMap<String, Any>>
     val release = releases.firstOrAdd(mutableMapOf()) { it["version"] == extensionVersion }
     release["version"] = extensionVersion
-    release["date"] = LocalDateTime.now(ZoneId.of("UTC")).format(ISO_DATE_TIME)
-    release["url"] = "$extensionId-$extensionVersion.jar"
+    release["date"] = Instant.now().toString()
+    release["url"] = if (jarFolder != null) {
+        getFile(jarFolder, "$extensionId-$extensionVersion.jar").absolutePath
+    } else {
+        "$extensionId-$extensionVersion.jar"
+    }
     extensionsFile.write(GsonBuilder().setPrettyPrinting().create().toJson(extensionsJson).toString())
 }
 

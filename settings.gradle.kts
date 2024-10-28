@@ -9,6 +9,7 @@ pluginManagement {
     val kotlinLoggingVersion: String by settings
     val pf4jVersion: String by settings
     val pf4jSpringVersion: String by settings
+    val camundaVersion: String by settings
 
     val valtimoVersion: String by settings
 
