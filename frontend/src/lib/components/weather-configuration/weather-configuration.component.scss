@@ -1,4 +1,4 @@
-/*
+/*!
  * Copyright 2015-2022 Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
@@ -13,28 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import {NgModule} from '@angular/core';
-import {CASE_MANAGEMENT_TAB_TOKEN} from '@valtimo/config';
-import {WeatherTabComponent} from "./components/weather-tab.component";
-
-@NgModule({
-  declarations: [
-    WeatherTabComponent,
-  ],
-  exports: [
-    WeatherTabComponent,
-  ],
-  providers: [
-    {
-      provide: CASE_MANAGEMENT_TAB_TOKEN,
-      useValue: {
-        translationKey: 'Weather tab',
-        component: WeatherTabComponent,
-      },
-      multi: true,
-    }
-  ]
-})
-export class WeatherTabModule {
-}

@@ -95,6 +95,20 @@ tasks.withType<Jar> {
     }
 }
 
+tasks.register<Exec>("npmInstall") {
+    group = "npm"
+    description = "npm install"
+    workingDir = File("frontend")
+    commandLine = listOf("npm", "install")
+}
+
+tasks.register<Exec>("npmRunBuild") {
+    group = "npm"
+    description = "npm run build"
+    workingDir = File("frontend")
+    commandLine = listOf("npm", "run", "build")
+}
+
 tasks.register("buildExtensionRepository") {
     group = "build"
     description = "Build a repository folder containing the extension JAR file"

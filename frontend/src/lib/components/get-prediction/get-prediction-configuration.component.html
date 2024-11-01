@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2015-2023 Ritense BV, the Netherlands.
+  ~ Copyright 2015-2022 Ritense BV, the Netherlands.
   ~
   ~ Licensed under EUPL, Version 1.2 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,4 +14,20 @@
   ~ limitations under the License.
   -->
 
-<b>Not very sunny today =/</b>
+<v-form
+  (valueChange)="formValueChange($event)"
+  *ngIf="{
+    disabled: disabled$ | async,
+    prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
+  } as obs"
+>
+  <v-input
+    name="prediction2"
+    [title]="'prediction2' | pluginTranslate: pluginId | async"
+    [margin]="true"
+    [defaultValue]="obs.prefill?.prediction2"
+    [disabled]="obs.disabled"
+    [required]="true"
+    [tooltip]="'prediction2Tooltip' | pluginTranslate: pluginId | async"
+  ></v-input>
+</v-form>

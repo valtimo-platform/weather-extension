@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2024 Ritense BV, the Netherlands.
+ * Copyright 2015-2022 Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+/*
+ * Public API Surface of weather
+ */
 
-@Component({
-  templateUrl: './weather-tab.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class WeatherTabComponent {
-
-}
+export * from './lib/models';
+export * from './lib/weather-plugin-module';
+export * from './lib/weather-plugin.specification';
+export * from './lib/components/weather-configuration/weather-configuration.component';
+export * from './lib/components/get-prediction/get-prediction-configuration.component';
