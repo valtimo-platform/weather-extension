@@ -22,12 +22,12 @@
   } as obs"
 >
   <v-input
-    name="prediction2"
-    [title]="'prediction2' | pluginTranslate: pluginId | async"
+    name="address"
+    [title]="'address' | pluginTranslate: pluginId | async"
     [margin]="true"
-    [defaultValue]="obs.prefill?.prediction2"
+    [defaultValue]="obs.prefill?.address"
     [disabled]="obs.disabled"
     [required]="true"
-    [tooltip]="'prediction2Tooltip' | pluginTranslate: pluginId | async"
+    [tooltip]="'addressTooltip' | pluginTranslate: pluginId | async"
   ></v-input>
 </v-form>

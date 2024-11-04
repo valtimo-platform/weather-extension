@@ -21,8 +21,7 @@ import {WeatherConfig} from '../../models';
 
 @Component({
   selector: 'valtimo-weather-configuration',
-  templateUrl: './weather-configuration.component.html',
-  styleUrls: ['./weather-configuration.component.scss'],
+  template: require('./weather-configuration.component.html'),
 })
 export class WeatherConfigurationComponent
   implements PluginConfigurationComponent, OnInit, OnDestroy
@@ -52,7 +51,7 @@ export class WeatherConfigurationComponent
   }
 
   private handleValid(formValue: WeatherConfig): void {
-    const valid = !!(formValue.configurationTitle && formValue.prediction1);
+    const valid = !!(formValue.configurationTitle && formValue.url);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

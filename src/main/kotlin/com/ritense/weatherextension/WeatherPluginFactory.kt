@@ -16,8 +16,10 @@
 
 package com.ritense.weatherextension
 
+import com.ritense.document.service.DocumentService
 import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
+import com.ritense.processdocument.service.ProcessDocumentService
 import org.pf4j.Extension
 import org.pf4j.ExtensionPoint
 import org.springframework.stereotype.Component
@@ -26,9 +28,14 @@ import org.springframework.stereotype.Component
 @Component
 class WeatherPluginFactory(
     pluginService: PluginService,
+    private val documentService: DocumentService,
+    private val processDocumentService: ProcessDocumentService,
 ) : PluginFactory<WeatherPlugin>(pluginService), ExtensionPoint {
 
     override fun create(): WeatherPlugin {
-        return WeatherPlugin()
+        return WeatherPlugin(
+            documentService,
+            processDocumentService,
+        )
     }
 }

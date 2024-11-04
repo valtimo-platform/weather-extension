@@ -17,10 +17,14 @@
 
 package com.ritense.weatherextension
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.ritense.document.service.DocumentService
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
+import com.ritense.processdocument.domain.impl.CamundaProcessInstanceId
+import com.ritense.processdocument.service.ProcessDocumentService
 import com.ritense.processlink.domain.ActivityTypeWithEventName
 import mu.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
@@ -33,23 +37,31 @@ import org.pf4j.ExtensionPoint
     title = "Weather checker",
     description = "Check the weather"
 )
-class WeatherPlugin: ExtensionPoint {
+class WeatherPlugin(
+    private val documentService: DocumentService,
+    private val processDocumentService: ProcessDocumentService,
+): ExtensionPoint {
 
-    @PluginProperty(key = "prediction1", secret = false)
-    lateinit var prediction1: String
+    @PluginProperty(key = "url", secret = false)
+    lateinit var url: String
 
     @PluginAction(
-        key = "get-statustype",
-        title = "Get Statustype",
-        description = "Retrieve the statustype and save it in a process variable",
+        key = "get-prediction",
+        title = "Get Prediction",
+        description = "Predict the weather",
         activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START, ActivityTypeWithEventName.CALL_ACTIVITY_START]
     )
     fun getPrediction(
         execution: DelegateExecution,
-        @PluginActionProperty prediction2: String,
+        @PluginActionProperty address: String,
     ) {
-        logger.info { "Prediction1: $prediction1" }
-        logger.info { "Prediction2: $prediction2" }
+        val weatherPrediction = "Not very sunny in: '$address'. Also url: '$url'"
+        val document = processDocumentService.getDocument(CamundaProcessInstanceId(execution.processInstanceId), execution)
+
+        documentService.modifyDocument(
+            document,
+            jacksonObjectMapper().readTree("""{"weatherPrediction":"$weatherPrediction"}""")
+        )
     }
 
     companion object {

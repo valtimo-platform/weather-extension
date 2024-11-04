@@ -34,14 +34,14 @@
   >
   </v-input>
   <v-input
-    name="prediction1"
-    [title]="'prediction1' | pluginTranslate: pluginId | async"
+    name="url"
+    [title]="'url' | pluginTranslate: pluginId | async"
     [fullWidth]="true"
     [margin]="true"
     [disabled]="obs.disabled"
-    [defaultValue]="obs.prefill?.prediction1"
+    [defaultValue]="obs.prefill?.url"
     [required]="true"
-    [tooltip]="'prediction1Tooltip' | pluginTranslate: pluginId | async"
+    [tooltip]="'urlTooltip' | pluginTranslate: pluginId | async"
     placeholder="https://www.weather.com/"
   >
   </v-input>

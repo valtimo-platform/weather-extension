@@ -60,6 +60,7 @@ repositories {
 dependencies {
     implementation("com.ritense.valtimo:contract:$valtimoVersion")
     implementation("com.ritense.valtimo:document:$valtimoVersion")
+    implementation("com.ritense.valtimo:process-document:$valtimoVersion")
     implementation("com.ritense.valtimo:plugin:$valtimoVersion")
     implementation("org.camunda.bpm:camunda-engine:$camundaVersion")
 
@@ -79,7 +80,7 @@ val extensionId: String by gradleProperties
 val extensionName: String by gradleProperties
 val extensionDescription: String by gradleProperties
 val extensionClass: String by gradleProperties
-val extensionVersion: String by gradleProperties
+val projectVersion: String by gradleProperties
 val extensionProvider: String by gradleProperties
 val extensionDependencies: String by gradleProperties
 
@@ -89,7 +90,7 @@ tasks.withType<Jar> {
         attributes["Plugin-Name"] = extensionName
         attributes["Plugin-Description"] = extensionDescription
         attributes["Plugin-Class"] = extensionClass
-        attributes["Plugin-Version"] = extensionVersion
+        attributes["Plugin-Version"] = projectVersion
         attributes["Plugin-Provider"] = extensionProvider
         attributes["Plugin-Dependencies"] = extensionDependencies
     }
@@ -115,7 +116,7 @@ tasks.register("buildExtensionRepository") {
     dependsOn("jar")
     doFirst {
         val jarFile = getFile(layout.buildDirectory.get().toString(), "libs").listFiles()!!.first { it.name.endsWith(".jar") }
-        val newJarFile = getFile(projectDir.absolutePath, "repository", "$extensionId-$extensionVersion.jar")
+        val newJarFile = getFile(projectDir.absolutePath, "repository", "$extensionId-$projectVersion.jar")
         Files.copy(jarFile, newJarFile)
         createRepository(
             extensionsJsonFolder = getFile(projectDir.absolutePath, "repository").absolutePath,
@@ -153,13 +154,13 @@ fun createRepository(extensionsJsonFolder: String, jarFolder: String?) {
     extensionJson["description"] = extensionDescription
     extensionJson["provider"] = extensionProvider
     val releases = extensionJson.getOrPut("releases") { mutableListOf<Any>() } as MutableList<MutableMap<String, Any>>
-    val release = releases.firstOrAdd(mutableMapOf()) { it["version"] == extensionVersion }
-    release["version"] = extensionVersion
+    val release = releases.firstOrAdd(mutableMapOf()) { it["version"] == projectVersion }
+    release["version"] = projectVersion
     release["date"] = Instant.now().toString()
     release["url"] = if (jarFolder != null) {
-        getFile(jarFolder, "$extensionId-$extensionVersion.jar").absolutePath
+        getFile(jarFolder, "$extensionId-$projectVersion.jar").absolutePath
     } else {
-        "$extensionId-$extensionVersion.jar"
+        "$extensionId-$projectVersion.jar"
     }
     extensionsFile.write(GsonBuilder().setPrettyPrinting().create().toJson(extensionsJson).toString())
 }

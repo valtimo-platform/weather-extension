@@ -17,9 +17,10 @@
 import {NgModule} from '@angular/core';
 import {WeatherConfigurationComponent} from './components/weather-configuration/weather-configuration.component';
 import {CommonModule} from '@angular/common';
-import {PluginTranslatePipeModule} from '@valtimo/plugin';
+import {PLUGINS_TOKEN, PluginTranslatePipeModule} from '@valtimo/plugin';
 import {FormModule, InputModule, ParagraphModule} from '@valtimo/components';
 import {GetPredictionConfigurationComponent} from './components/get-prediction/get-prediction-configuration.component';
+import {weatherPluginSpecification} from "./weather-plugin.specification";
 
 @NgModule({
   declarations: [
@@ -31,5 +32,14 @@ import {GetPredictionConfigurationComponent} from './components/get-prediction/g
     WeatherConfigurationComponent,
     GetPredictionConfigurationComponent,
   ],
+  providers: [
+    {
+      provide: PLUGINS_TOKEN,
+      useValue: [
+        weatherPluginSpecification,
+      ]
+    }
+  ]
 })
-export class WeatherPluginModule {}
+export class WeatherPluginModule {
+}

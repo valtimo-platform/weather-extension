@@ -1,0 +1,69 @@
+{
+  "display" : "form",
+  "settings" : {
+    "pdf" : {
+      "id" : "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
+      "src" : "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0"
+    }
+  },
+  "components" : [
+    {
+      "key" : "columns",
+      "type" : "columns",
+      "input" : false,
+      "label" : "Columns",
+      "columns" : [
+        {
+          "pull" : 0,
+          "push" : 0,
+          "size" : "md",
+          "width" : 3,
+          "offset" : 0,
+          "components" : [
+            {
+              "key" : "textField",
+              "type" : "textfield",
+              "input" : true,
+              "label" : "Text Field",
+              "disabled" : true,
+              "hideLabel" : true,
+              "tableView" : true,
+              "attributes" : {
+                "style" : "height: 24px !important; background-color: white; border: 0px; margin:0px; padding: 0px !important; font-size: 13px; font-family: roboto; font-weight: 400;",
+                "data-testid" : "check-weather.summary-textField"
+              },
+              "applyMaskOn" : "change",
+              "placeholder" : "Weather prediction"
+            }
+          ],
+          "currentWidth" : 3
+        },
+        {
+          "pull" : 0,
+          "push" : 0,
+          "size" : "md",
+          "width" : 3,
+          "offset" : 0,
+          "components" : [
+            {
+              "key" : "weatherPrediction",
+              "type" : "textfield",
+              "input" : true,
+              "label" : "Text Field",
+              "disabled" : true,
+              "hideLabel" : true,
+              "tableView" : true,
+              "attributes" : {
+                "style" : "height: 24px !important; background-color: white; border: 0px; margin:0px; padding: 0px !important; font-size: 13px; font-family: roboto; font-weight: 700;",
+                "data-testid" : "bezwaar.summary-naamBehandelaar"
+              },
+              "applyMaskOn" : "change"
+            }
+          ],
+          "currentWidth" : 3
+        }
+      ],
+      "tableView" : false
+    }
+  ]
+}

@@ -17,11 +17,11 @@
 import {PluginConfigurationData} from '@valtimo/plugin';
 
 interface WeatherConfig extends PluginConfigurationData {
-  prediction1: string;
+  url: string;
 }
 
 interface GetPredictionConfig {
-  prediction2: string;
+  address: string;
 }
 
 export {WeatherConfig, GetPredictionConfig};

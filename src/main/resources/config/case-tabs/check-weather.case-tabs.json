@@ -1,0 +1,22 @@
+{
+  "changesetId" : "check-weather.case-tabs.1730716424751",
+  "case-definitions" : [
+    {
+      "key" : "check-weather",
+      "tabs" : [
+        {
+          "key" : "summary",
+          "name" : null,
+          "type" : "standard",
+          "contentKey" : "summary"
+        },
+        {
+          "key" : "progress",
+          "name" : null,
+          "type" : "standard",
+          "contentKey" : "progress"
+        }
+      ]
+    }
+  ]
+}

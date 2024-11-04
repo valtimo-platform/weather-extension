@@ -28,71 +28,40 @@ const weatherPluginSpecification: PluginSpecification = {
   },
   pluginTranslations: {
     nl: {
-      title: 'Weather',
-      'get-prediction': 'Bericht plaatsen',
-      'get-prediction-with-file': 'Bericht plaatsen met bestand',
-      url: 'Weather URL',
-      urlTooltip: 'Een URL naar de REST API van Weather.',
-      description: 'Publiceer berichten met de Weather plugin.',
-      configurationTitle: 'Configuratienaam',
-      configurationTitleTooltip:
-        'De naam van de huidige plugin-configuratie. Onder deze naam kan de configuratie in de rest van de applicatie teruggevonden worden.',
-      token: 'Token',
-      tokenTooltip: 'Authenticatie token met vereiste scopes.',
-      channel: 'Kanaal',
-      channelTooltip:
-        'Kanaal, privégroep of chatkanaal om een bericht naar te verzenden. Dit kan een gecodeerde ID of een naam zijn. Zie hieronder voor meer details.',
-      channels: 'Kanalen',
-      channelsTooltip:
-        "Door komma's gescheiden lijst met kanaalnamen of ID's waar het bestand zal worden gedeeld.",
-      message: 'Bericht',
-      messageTooltip: 'De berichttekst.',
+      "title": "Weer",
+      "get-prediction": "Voorspelling ophalen",
+      "description": "Voorspel het weer met de Weer-plugin.",
+      "configurationTitle": "Configuratienaam",
+      "configurationTitleTooltip":
+        "De naam van de huidige plugin-configuratie. Onder deze naam is de configuratie in de rest van de applicatie te vinden.",
+      "url": "Weer-URL",
+      "urlTooltip": "Een URL naar de REST-API van Weer",
+      "address": "Adres",
+      "addressTooltip": "Het adres."
     },
     en: {
       title: 'Weather',
-      'get-prediction': 'Post message',
-      'get-prediction-with-file': 'Post message with file',
-      url: 'Weather URL',
-      urlTooltip: 'A URL to the REST API of Weather',
-      description: 'Post messages with the Weather plugin.',
+      'get-prediction': 'Get prediction',
+      description: 'Predict the weather with the Weather plugin.',
       configurationTitle: 'Configuration name',
       configurationTitleTooltip:
         'The name of the current plugin configuration. Under this name, the configuration can be found in the rest of the application.',
-      token: 'Token',
-      tokenTooltip: 'Authentication token bearing required scopes.',
-      channel: 'Channel',
-      channelTooltip:
-        'Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See below for more details.',
-      channels: 'Channels',
-      channelsTooltip:
-        'Comma-separated list of channel names or IDs where the file will be shared.',
-      message: 'Message',
-      messageTooltip: 'The message text.',
-      filename: 'Filename',
-      filenameTooltip: 'The filename of the file.',
+      url: 'Weather URL',
+      urlTooltip: 'A URL to the REST API of Weather',
+      address: 'Address',
+      addressTooltip: 'The address.',
     },
     de: {
-      title: 'Weather',
-      'get-prediction': 'Kommentar posten',
-      'get-prediction-with-file': 'Kommentar mit Datei posten',
-      url: 'Weather URL',
-      urlTooltip: 'Die URL zur REST API von Weather',
-      description: 'Veröffentlichen Sie Nachrichten mit dem Weather-Plugin.',
-      configurationTitle: 'Konfigurationsname',
-      configurationTitleTooltip:
-        'Der Name der aktuellen Plugin-Konfiguration. Unter diesem Namen ist die Konfiguration im Rest der Anwendung zu finden.',
-      token: 'Token',
-      tokenTooltip: 'Authentifizierungstoken mit erforderlichen scopes.',
-      channel: 'Channel',
-      channelTooltip:
-        'Kanal, private Gruppe oder IM-Kanal, an den die Nachricht gesendet werden soll. Kann eine codierte ID oder ein Name sein. Siehe unten für weitere Details.',
-      channels: 'Kanäle',
-      channelsTooltip:
-        'Durch Komma getrennte Liste von Kanalnamen oder IDs, wo die Datei geteilt wird.',
-      message: 'Kommentar',
-      messageTooltip: 'Der Nachrichtentext.',
-      filename: 'Dateiname',
-      filenameTooltip: 'Der Dateiname der Datei.',
+      "title": "Wetter",
+      "get-prediction": "Vorhersage abrufen",
+      description: 'Predict the weather with the Weather plugin.',
+      "configurationTitle": "Konfigurationsname",
+      "configurationTitleTooltip":
+        "Der Name der aktuellen Plugin-Konfiguration. Unter diesem Namen kann die Konfiguration im restlichen Teil der Anwendung gefunden werden.",
+      "url": "Wetter-URL",
+      "urlTooltip": "Eine URL zur REST-API des Wetters",
+      "address": "Adresse",
+      "addressTooltip": "Die Adresse."
     },
   },
 };

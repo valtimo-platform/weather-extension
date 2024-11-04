@@ -2,34 +2,53 @@
 const path = require('path');
 
 module.exports = {
-    mode: "development",
     devtool: "inline-source-map",
     entry: {
         main: "./src/public_api.ts",
     },
     output: {
         path: path.resolve(__dirname, '../src/main/resources/public'),
-        filename: "frontend-bundle.js"
+        filename: "frontend-bundle.js",
+        library: {
+            type: "module"
+        },
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".mjs", ".map" ],
+        extensions: [".ts", ".tsx", ".js", ".mjs", ".map", ".scss", ".html"],
         fullySpecified: false,
         modules: ['node_modules'],
     },
     experiments: {
         outputModule: true,
     },
-    externalsType: 'module',
+    externalsType: 'window',
     externals: [
-        /^@angular/,
-        /^@valtimo/,
-        /^rxjs/,
+        "@angular/common",
+        "@angular/core",
+        "@valtimo/components",
+        "@valtimo/plugin",
+        "rxjs",
+        "tslib",
     ],
     module: {
         rules: [
             {
+                test: /\.(ts|tsx)?$/,
                 loader: "ts-loader",
-                test: /\.(ts|tsx)?$/
+            },
+            {
+                test: /\.(html|css|scss)?$/,
+                type: 'asset/source',
+                generator: {
+                    filename: 'assets/[name]-[contenthash].[ext]',
+                }
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/[name]-[contenthash].[ext]',
+                }
             },
             {
                 resolve: {

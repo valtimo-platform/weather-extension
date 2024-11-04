@@ -21,8 +21,7 @@ import {GetPredictionConfig} from '../../models';
 
 @Component({
   selector: 'valtimo-get-prediction-configuration',
-  templateUrl: './get-prediction-configuration.component.html',
-  styleUrls: ['./get-prediction-configuration.component.scss'],
+  template: require('./get-prediction-configuration.component.html'),
 })
 export class GetPredictionConfigurationComponent
   implements FunctionConfigurationComponent, OnInit, OnDestroy
@@ -52,7 +51,7 @@ export class GetPredictionConfigurationComponent
   }
 
   private handleValid(formValue: GetPredictionConfig): void {
-    const valid = !!(formValue.prediction2);
+    const valid = !!(formValue.address);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

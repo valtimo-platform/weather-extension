@@ -1,0 +1,7 @@
+[
+  {
+    "processDefinitionKey" : "check-weather-process",
+    "canInitializeDocument" : true,
+    "startableByUser" : false
+  }
+]
