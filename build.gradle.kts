@@ -78,21 +78,25 @@ val gradleProperties = Properties()
 gradleProperties.load(file("gradle.properties").inputStream())
 val extensionId: String by gradleProperties
 val extensionName: String by gradleProperties
+val extensionLogo: String by gradleProperties
 val extensionDescription: String by gradleProperties
 val extensionClass: String by gradleProperties
 val projectVersion: String by gradleProperties
 val extensionProvider: String by gradleProperties
 val extensionDependencies: String by gradleProperties
+val extensionRequires: String by gradleProperties
+val extensionLicense: String by gradleProperties
 
 tasks.withType<Jar> {
     manifest {
         attributes["Plugin-Id"] = extensionId
-        attributes["Plugin-Name"] = extensionName
         attributes["Plugin-Description"] = extensionDescription
         attributes["Plugin-Class"] = extensionClass
         attributes["Plugin-Version"] = projectVersion
         attributes["Plugin-Provider"] = extensionProvider
         attributes["Plugin-Dependencies"] = extensionDependencies
+        attributes["Plugin-Requires"] = extensionRequires
+        attributes["Plugin-License"] = extensionLicense
     }
 }
 
@@ -142,6 +146,7 @@ tasks.register("clearLocalExtensionCache") {
     description = "Clear all extensions that where published to your local machine"
     doFirst {
         getFile(System.getProperty("user.home"), ".valtimo_extensions").deleteRecursively()
+        getFile(projectDir.absolutePath, "repository").deleteRecursively()
     }
 }
 
@@ -151,6 +156,7 @@ fun createRepository(extensionsJsonFolder: String, jarFolder: String?) {
     val extensionJson = extensionsJson.firstOrAdd(mutableMapOf()) { it["id"] == extensionId }
     extensionJson["id"] = extensionId
     extensionJson["name"] = extensionName
+    extensionJson["logo"] = extensionLogo
     extensionJson["description"] = extensionDescription
     extensionJson["provider"] = extensionProvider
     val releases = extensionJson.getOrPut("releases") { mutableListOf<Any>() } as MutableList<MutableMap<String, Any>>

@@ -18,7 +18,7 @@ import {NgModule} from '@angular/core';
 import {WeatherConfigurationComponent} from './components/weather-configuration/weather-configuration.component';
 import {CommonModule} from '@angular/common';
 import {PLUGINS_TOKEN, PluginTranslatePipeModule} from '@valtimo/plugin';
-import {FormModule, InputModule, ParagraphModule} from '@valtimo/components';
+import {FormModule, InputModule} from '@valtimo/components';
 import {GetPredictionConfigurationComponent} from './components/get-prediction/get-prediction-configuration.component';
 import {weatherPluginSpecification} from "./weather-plugin.specification";
 
@@ -27,7 +27,7 @@ import {weatherPluginSpecification} from "./weather-plugin.specification";
     WeatherConfigurationComponent,
     GetPredictionConfigurationComponent,
   ],
-  imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, ParagraphModule],
+  imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule],
   exports: [
     WeatherConfigurationComponent,
     GetPredictionConfigurationComponent,

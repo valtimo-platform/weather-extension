@@ -17,9 +17,9 @@
 
 package com.ritense.weatherextension
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.ritense.document.service.DocumentService
+import com.ritense.processdocument.service.ValueResolverDelegateService
 import com.ritense.valtimo.contract.annotation.ProcessBean
+import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.pf4j.Extension
 import org.pf4j.ExtensionPoint
 import org.springframework.stereotype.Service
@@ -28,16 +28,13 @@ import org.springframework.stereotype.Service
 @ProcessBean
 @Service
 class WeatherService(
-    private val documentService: DocumentService
+    private val valueResolverDelegateService: ValueResolverDelegateService,
 ) : ExtensionPoint {
 
-    fun predictWeather(documentId: String): String {
+    fun predictWeather(execution: DelegateExecution): String {
         val weatherPrediction = "Not very sunny today =/"
 
-        documentService.modifyDocument(
-            documentService[documentId],
-            jacksonObjectMapper().readTree("""{"weatherPrediction":"$weatherPrediction"}""")
-        )
+        valueResolverDelegateService.handleValue(execution, "doc:weatherPrediction", weatherPrediction)
 
         return weatherPrediction
     }

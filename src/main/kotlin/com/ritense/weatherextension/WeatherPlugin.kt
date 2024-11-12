@@ -17,16 +17,12 @@
 
 package com.ritense.weatherextension
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.ritense.document.service.DocumentService
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
-import com.ritense.processdocument.domain.impl.CamundaProcessInstanceId
-import com.ritense.processdocument.service.ProcessDocumentService
+import com.ritense.processdocument.service.ValueResolverDelegateService
 import com.ritense.processlink.domain.ActivityTypeWithEventName
-import mu.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.pf4j.Extension
 import org.pf4j.ExtensionPoint
@@ -38,9 +34,8 @@ import org.pf4j.ExtensionPoint
     description = "Check the weather"
 )
 class WeatherPlugin(
-    private val documentService: DocumentService,
-    private val processDocumentService: ProcessDocumentService,
-): ExtensionPoint {
+    private val valueResolverDelegateService: ValueResolverDelegateService
+) : ExtensionPoint {
 
     @PluginProperty(key = "url", secret = false)
     lateinit var url: String
@@ -56,15 +51,6 @@ class WeatherPlugin(
         @PluginActionProperty address: String,
     ) {
         val weatherPrediction = "Not very sunny in: '$address'. Also url: '$url'"
-        val document = processDocumentService.getDocument(CamundaProcessInstanceId(execution.processInstanceId), execution)
-
-        documentService.modifyDocument(
-            document,
-            jacksonObjectMapper().readTree("""{"weatherPrediction":"$weatherPrediction"}""")
-        )
-    }
-
-    companion object {
-        private val logger = KotlinLogging.logger {}
+        valueResolverDelegateService.handleValue(execution, "doc:weatherPrediction", weatherPrediction)
     }
 }
